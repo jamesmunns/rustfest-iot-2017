@@ -1,0 +1,50 @@
+                                      .---------------------------.
+                                      |         The Cloud         |
+                                      |---------------------------|            .--------------------.
+                                      |                           |            |   Mobile Devices   |
+                                      | .-----------------------. |    HTTPS   |--------------------|
+                                      | |    Cross Compiler     | |<---------->|        Apps        |
+                                      | |   System Test Code    | |            '--------------------'
+                                      | '-----------------------' |
+                                      |                           |
+                                      '---------------------------'
+                                             ^      ^      ^
+                       HTTPS, MQTTS, CoAP    |      |      |    HTTPS, MQTTS, CoAP
+                 .---------------------------.      |      .---------------------------.
+                /                                   |                                   \
+                |                                   | MQTTS, CoAP                       |
+                |                                   V                                   V
+                |                     .--------------------------------.  .--------------------------------.
+                |                     |         Border Router          |  |          Smart Gateway         |
+                |                     |--------------------------------|  |--------------------------------|
+                |                     |      WiFi, GSM, Ethernet       |  |      WiFi, GSM, Ethernet       |
+                |                     |                                |  |                                |
+                |                     |      6LoWPan, Thread, or       |  |      Zigbee, ZWave, or         |
+                |                     |        Bluetooth IPSP          |  |        Bluetooth Low Energy    |
+                |                     |                                |  |                                |
+                |                     |         Embedded Linux         |  |         Embedded Linux         |
+                |                     '--------------------------------'  '--------------------------------'
+                |                          ^    6LoWPan            ^                      ^
+                |                          |      Mesh             |                       \ Bluetooth Low Energy
+                v                          v                       v                        v
+.--------------------------.     .---------------------.   .---------------------.    .---------------------.
+|        Direct Nodes      |     |    Indirect Node    |   |    Indirect Node    |    |    Indirect Node    |
+|--------------------------|     |---------------------|   |---------------------|    |---------------------|
+|        IoT Device        |     |   Microcontroller   |   |   Microcontroller   |    |   Microcontroller   |
+|                          |     |                     |   |                     |    |                     |
+|    WiFi, GSM, Ethernet   |     | Sensors + Actuators |   | Sensors + Actuators |    | Sensors + Actuators |
+|                          |     |                     |   |                     |    |                     |
+|     Embedded Linux or    |     |  RTOS like Tock OS  |<->|  RTOS like Tock OS  |    |  RTOS like Tock OS  |
+| High End Microcontroller |     '---------------------'   '---------------------'    '---------------------'
+'--------------------------'               ^                    ^
+                                            \     6LoWPan      /
+                                             v      Mesh      v
+                                           .---------------------.
+                                           |    Indirect Node    |
+                                           |---------------------|
+                                           |   Microcontroller   |
+                                           |                     |
+                                           | Sensors + Actuators |
+                                           |                     |
+                                           |  RTOS like Tock OS  |
+                                           '---------------------'
