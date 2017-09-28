@@ -1,4 +1,4 @@
-<svg font-family="arial" font-size="14" height="832" width="936" xmlns="http://www.w3.org/2000/svg">
+<svg font-family="arial" font-size="14" height="864" width="936" xmlns="http://www.w3.org/2000/svg">
 <defs>
 <marker id="triangle" markerHeight="10" markerUnits="strokeWidth" markerWidth="10" orient="auto" refX="15" refY="10" viewBox="0 0 50 20">
 <path d="M 0 0 L 30 10 L 0 20 z"/>
@@ -35,28 +35,28 @@
     }
     
 </style>
-<path d=" M 308 12 L 308 144 M 312 8 A 4 4 0 0 0 308 12 M 312 8 L 528 8 M 532 12 L 532 144 M 532 12 A 4 4 0 0 0 528 8 M 308 16 L 308 144 M 532 16 L 532 144 M 320 40 L 308 40 M 320 40 L 532 40 M 636 44 L 636 96 M 640 40 A 4 4 0 0 0 636 44 M 640 40 L 800 40 M 804 44 L 804 96 M 804 44 A 4 4 0 0 0 800 40 M 636 48 L 636 96 M 804 48 L 804 96 M 324 76 L 324 112 M 328 72 A 4 4 0 0 0 324 76 M 328 72 L 512 72 M 516 76 L 516 112 M 516 76 A 4 4 0 0 0 512 72 M 648 72 L 636 72 M 648 72 L 804 72 M 324 80 L 324 112 M 516 80 L 516 112 M 636 96 L 636 100 A 4 4 0 0 0 640 104 L 800 104 M 804 96 L 804 100 M 800 104 A 4 4 0 0 0 804 100 M 324 112 L 324 116 A 4 4 0 0 0 328 120 L 512 120 M 516 112 L 516 116 M 512 120 A 4 4 0 0 0 516 116 M 308 144 L 308 148 A 4 4 0 0 0 312 152 L 528 152 M 532 144 L 532 148 M 528 152 A 4 4 0 0 0 532 148 M 364 176 L 364 192 M 476 176 L 476 192 M 136 208 L 138 204 M 144 200 A 8 8 0 0 0 138 204 M 144 200 L 360 200 M 364 192 L 364 196 M 360 200 A 4 4 0 0 0 364 196 M 476 192 L 476 196 A 4 4 0 0 0 480 200 L 696 200 M 704 208 L 702 204 A 8 8 0 0 0 696 200 M 132 216 L 136 208 M 704 208 L 708 216 M 308 268 L 308 400 M 312 264 A 4 4 0 0 0 308 268 M 312 264 L 568 264 M 572 268 L 572 400 M 572 268 A 4 4 0 0 0 568 264 M 596 268 L 596 400 M 600 264 A 4 4 0 0 0 596 268 M 600 264 L 856 264 M 860 268 L 860 400 M 860 268 A 4 4 0 0 0 856 264 M 308 272 L 308 400 M 572 272 L 572 400 M 596 272 L 596 400 M 860 272 L 860 400 M 320 296 L 308 296 M 320 296 L 572 296 M 608 296 L 596 296 M 608 296 L 860 296 M 308 400 L 308 404 A 4 4 0 0 0 312 408 L 568 408 M 572 400 L 572 404 M 568 408 A 4 4 0 0 0 572 404 M 596 400 L 596 404 A 4 4 0 0 0 600 408 L 856 408 M 860 400 L 860 404 M 856 408 A 4 4 0 0 0 860 404 M 4 476 L 4 608 M 8 472 A 4 4 0 0 0 4 476 M 8 472 L 216 472 M 220 476 L 220 608 M 220 476 A 4 4 0 0 0 216 472 M 268 476 L 268 592 M 272 472 A 4 4 0 0 0 268 476 M 272 472 L 440 472 M 444 476 L 444 592 M 444 476 A 4 4 0 0 0 440 472 M 476 476 L 476 592 M 480 472 A 4 4 0 0 0 476 476 M 480 472 L 648 472 M 652 476 L 652 592 M 652 476 A 4 4 0 0 0 648 472 M 692 476 L 692 592 M 696 472 A 4 4 0 0 0 692 476 M 696 472 L 864 472 M 868 476 L 868 592 M 868 476 A 4 4 0 0 0 864 472 M 4 480 L 4 608 M 220 480 L 220 608 M 268 480 L 268 592 M 444 480 L 444 592 M 476 480 L 476 592 M 652 480 L 652 592 M 692 480 L 692 592 M 868 480 L 868 592 M 16 504 L 4 504 M 16 504 L 220 504 M 280 504 L 268 504 M 280 504 L 444 504 M 488 504 L 476 504 M 488 504 L 652 504 M 704 504 L 692 504 M 704 504 L 868 504 M 268 592 L 268 596 A 4 4 0 0 0 272 600 L 440 600 M 444 592 L 444 596 M 440 600 A 4 4 0 0 0 444 596 M 476 592 L 476 596 A 4 4 0 0 0 480 600 L 648 600 M 652 592 L 652 596 M 648 600 A 4 4 0 0 0 652 596 M 692 592 L 692 596 A 4 4 0 0 0 696 600 L 864 600 M 868 592 L 868 596 M 864 600 A 4 4 0 0 0 868 596 M 4 608 L 4 612 A 4 4 0 0 0 8 616 L 216 616 M 220 608 L 220 612 M 216 616 A 4 4 0 0 0 220 612 M 348 668 L 348 784 M 352 664 A 4 4 0 0 0 348 668 M 352 664 L 520 664 M 524 668 L 524 784 M 524 668 A 4 4 0 0 0 520 664 M 348 672 L 348 784 M 524 672 L 524 784 M 360 696 L 348 696 M 360 696 L 524 696 M 348 784 L 348 788 A 4 4 0 0 0 352 792 L 520 792 M 524 784 L 524 788 M 520 792 A 4 4 0 0 0 524 788" fill="none"/>
+<path d=" M 308 12 L 308 176 M 312 8 A 4 4 0 0 0 308 12 M 312 8 L 528 8 M 532 12 L 532 176 M 532 12 A 4 4 0 0 0 528 8 M 308 16 L 308 176 M 532 16 L 532 176 M 320 40 L 308 40 M 320 40 L 532 40 M 636 44 L 636 96 M 640 40 A 4 4 0 0 0 636 44 M 640 40 L 800 40 M 804 44 L 804 96 M 804 44 A 4 4 0 0 0 800 40 M 636 48 L 636 96 M 804 48 L 804 96 M 324 76 L 324 144 M 328 72 A 4 4 0 0 0 324 76 M 328 72 L 512 72 M 516 76 L 516 144 M 516 76 A 4 4 0 0 0 512 72 M 648 72 L 636 72 M 648 72 L 804 72 M 324 80 L 324 144 M 516 80 L 516 144 M 636 96 L 636 100 A 4 4 0 0 0 640 104 L 800 104 M 804 96 L 804 100 M 800 104 A 4 4 0 0 0 804 100 M 324 144 L 324 148 A 4 4 0 0 0 328 152 L 512 152 M 516 144 L 516 148 M 512 152 A 4 4 0 0 0 516 148 M 308 176 L 308 180 A 4 4 0 0 0 312 184 L 528 184 M 532 176 L 532 180 M 528 184 A 4 4 0 0 0 532 180 M 364 208 L 364 224 M 476 208 L 476 224 M 136 240 L 138 236 M 144 232 A 8 8 0 0 0 138 236 M 144 232 L 360 232 M 364 224 L 364 228 M 360 232 A 4 4 0 0 0 364 228 M 476 224 L 476 228 A 4 4 0 0 0 480 232 L 696 232 M 704 240 L 702 236 A 8 8 0 0 0 696 232 M 132 248 L 136 240 M 704 240 L 708 248 M 308 300 L 308 432 M 312 296 A 4 4 0 0 0 308 300 M 312 296 L 568 296 M 572 300 L 572 432 M 572 300 A 4 4 0 0 0 568 296 M 596 300 L 596 432 M 600 296 A 4 4 0 0 0 596 300 M 600 296 L 856 296 M 860 300 L 860 432 M 860 300 A 4 4 0 0 0 856 296 M 308 304 L 308 432 M 572 304 L 572 432 M 596 304 L 596 432 M 860 304 L 860 432 M 320 328 L 308 328 M 320 328 L 572 328 M 608 328 L 596 328 M 608 328 L 860 328 M 308 432 L 308 436 A 4 4 0 0 0 312 440 L 568 440 M 572 432 L 572 436 M 568 440 A 4 4 0 0 0 572 436 M 596 432 L 596 436 A 4 4 0 0 0 600 440 L 856 440 M 860 432 L 860 436 M 856 440 A 4 4 0 0 0 860 436 M 4 508 L 4 640 M 8 504 A 4 4 0 0 0 4 508 M 8 504 L 216 504 M 220 508 L 220 640 M 220 508 A 4 4 0 0 0 216 504 M 268 508 L 268 624 M 272 504 A 4 4 0 0 0 268 508 M 272 504 L 440 504 M 444 508 L 444 624 M 444 508 A 4 4 0 0 0 440 504 M 492 508 L 492 624 M 496 504 A 4 4 0 0 0 492 508 M 496 504 L 664 504 M 668 508 L 668 624 M 668 508 A 4 4 0 0 0 664 504 M 708 508 L 708 624 M 712 504 A 4 4 0 0 0 708 508 M 712 504 L 880 504 M 884 508 L 884 624 M 884 508 A 4 4 0 0 0 880 504 M 4 512 L 4 640 M 220 512 L 220 640 M 268 512 L 268 624 M 444 512 L 444 624 M 492 512 L 492 624 M 668 512 L 668 624 M 708 512 L 708 624 M 884 512 L 884 624 M 16 536 L 4 536 M 16 536 L 220 536 M 280 536 L 268 536 M 280 536 L 444 536 M 504 536 L 492 536 M 504 536 L 668 536 M 720 536 L 708 536 M 720 536 L 884 536 M 268 624 L 268 628 A 4 4 0 0 0 272 632 L 440 632 M 444 624 L 444 628 M 440 632 A 4 4 0 0 0 444 628 M 492 624 L 492 628 A 4 4 0 0 0 496 632 L 664 632 M 668 624 L 668 628 M 664 632 A 4 4 0 0 0 668 628 M 708 624 L 708 628 A 4 4 0 0 0 712 632 L 880 632 M 884 624 L 884 628 M 880 632 A 4 4 0 0 0 884 628 M 4 640 L 4 644 A 4 4 0 0 0 8 648 L 216 648 M 220 640 L 220 644 M 216 648 A 4 4 0 0 0 220 644 M 348 700 L 348 816 M 352 696 A 4 4 0 0 0 348 700 M 352 696 L 520 696 M 524 700 L 524 816 M 524 700 A 4 4 0 0 0 520 696 M 348 704 L 348 816 M 524 704 L 524 816 M 360 728 L 348 728 M 360 728 L 524 728 M 348 816 L 348 820 A 4 4 0 0 0 352 824 L 520 824 M 524 816 L 524 820 M 520 824 A 4 4 0 0 0 524 820" fill="none"/>
 <path d="" fill="none" stroke-dasharray="3 3"/>
 <line marker-end="url(#triangle)" x1="544" x2="540" y1="88" y2="88"/>
 <line marker-end="url(#triangle)" x1="544" x2="628" y1="88" y2="88"/>
-<line marker-end="url(#triangle)" x1="364" x2="364" y1="176" y2="160"/>
-<line marker-end="url(#triangle)" x1="420" x2="420" y1="176" y2="160"/>
-<line marker-end="url(#triangle)" x1="476" x2="476" y1="176" y2="160"/>
-<line marker-end="url(#triangle)" x1="420" x2="420" y1="176" y2="256"/>
-<line marker-end="url(#triangle)" x1="132" x2="132" y1="216" y2="464"/>
-<line marker-end="url(#triangle)" x1="708" x2="708" y1="216" y2="256"/>
-<line marker-end="url(#triangle)" x1="348" x2="348" y1="432" y2="416"/>
-<line marker-end="url(#triangle)" x1="540" x2="540" y1="432" y2="416"/>
-<line marker-end="url(#triangle)" x1="728" x2="724" y1="432" y2="424"/>
-<line marker-end="url(#triangle)" x1="348" x2="348" y1="432" y2="464"/>
-<line marker-end="url(#triangle)" x1="540" x2="540" y1="432" y2="464"/>
-<line marker-end="url(#triangle)" x1="728" x2="740" y1="432" y2="456"/>
-<line marker-end="url(#triangle)" x1="456" x2="452" y1="584" y2="584"/>
-<line marker-end="url(#triangle)" x1="456" x2="468" y1="584" y2="584"/>
-<line marker-end="url(#triangle)" x1="352" x2="348" y1="624" y2="616"/>
-<line marker-end="url(#triangle)" x1="352" x2="364" y1="624" y2="648"/>
-<line marker-end="url(#triangle)" x1="504" x2="516" y1="640" y2="616"/>
-<line marker-end="url(#triangle)" x1="504" x2="500" y1="640" y2="648"/>
+<line marker-end="url(#triangle)" x1="364" x2="364" y1="208" y2="192"/>
+<line marker-end="url(#triangle)" x1="420" x2="420" y1="208" y2="192"/>
+<line marker-end="url(#triangle)" x1="476" x2="476" y1="208" y2="192"/>
+<line marker-end="url(#triangle)" x1="420" x2="420" y1="208" y2="288"/>
+<line marker-end="url(#triangle)" x1="132" x2="132" y1="248" y2="496"/>
+<line marker-end="url(#triangle)" x1="708" x2="708" y1="248" y2="288"/>
+<line marker-end="url(#triangle)" x1="348" x2="348" y1="464" y2="448"/>
+<line marker-end="url(#triangle)" x1="540" x2="540" y1="464" y2="448"/>
+<line marker-end="url(#triangle)" x1="728" x2="724" y1="464" y2="456"/>
+<line marker-end="url(#triangle)" x1="348" x2="348" y1="464" y2="496"/>
+<line marker-end="url(#triangle)" x1="540" x2="540" y1="464" y2="496"/>
+<line marker-end="url(#triangle)" x1="728" x2="740" y1="464" y2="488"/>
+<line marker-end="url(#triangle)" x1="456" x2="452" y1="616" y2="616"/>
+<line marker-end="url(#triangle)" x1="456" x2="484" y1="616" y2="616"/>
+<line marker-end="url(#triangle)" x1="352" x2="348" y1="656" y2="648"/>
+<line marker-end="url(#triangle)" x1="352" x2="364" y1="656" y2="680"/>
+<line marker-end="url(#triangle)" x1="504" x2="516" y1="672" y2="648"/>
+<line marker-end="url(#triangle)" x1="504" x2="500" y1="672" y2="680"/>
 <text x="386" y="28">
 The Cloud
 </text>
@@ -67,198 +67,210 @@ Mobile Devices
 HTTPS
 </text>
 <text x="362" y="92">
-Cross Compiler
+Message Brokers
 </text>
 <text x="706" y="92">
 Apps
 </text>
 <text x="354" y="108">
-System Test Code
+Device
 </text>
-<text x="186" y="188">
+<text x="410" y="108">
++
+</text>
+<text x="426" y="108">
+User Auth
+</text>
+<text x="362" y="124">
+Historical Data
+</text>
+<text x="362" y="140">
+Developer APIs
+</text>
+<text x="186" y="220">
 HTTPS,
 </text>
-<text x="242" y="188">
+<text x="242" y="220">
 MQTTS,
 </text>
-<text x="298" y="188">
+<text x="298" y="220">
 CoAP
 </text>
-<text x="514" y="188">
+<text x="514" y="220">
 HTTPS,
 </text>
-<text x="570" y="188">
+<text x="570" y="220">
 MQTTS,
 </text>
-<text x="626" y="188">
+<text x="626" y="220">
 CoAP
 </text>
-<text x="434" y="236">
+<text x="434" y="268">
 MQTTS,
 </text>
-<text x="490" y="236">
+<text x="490" y="268">
 CoAP
 </text>
-<text x="386" y="284">
+<text x="386" y="316">
 Border Router
 </text>
-<text x="682" y="284">
+<text x="682" y="316">
 Smart Gateway
 </text>
-<text x="362" y="316">
-WiFi,
-</text>
-<text x="410" y="316">
-GSM,
-</text>
-<text x="450" y="316">
-Ethernet
-</text>
-<text x="650" y="316">
-WiFi,
-</text>
-<text x="698" y="316">
-GSM,
-</text>
-<text x="738" y="316">
-Ethernet
-</text>
 <text x="362" y="348">
-6LoWPan,
+WiFi,
 </text>
-<text x="434" y="348">
-Thread,
+<text x="410" y="348">
+GSM,
 </text>
-<text x="498" y="348">
-or
+<text x="450" y="348">
+Ethernet
 </text>
 <text x="650" y="348">
-Zigbee,
-</text>
-<text x="714" y="348">
-ZWave,
-</text>
-<text x="770" y="348">
-or
-</text>
-<text x="378" y="364">
-Bluetooth IPSP
-</text>
-<text x="666" y="364">
-Bluetooth Low Energy
-</text>
-<text x="386" y="396">
-Embedded Linux
-</text>
-<text x="674" y="396">
-Embedded Linux
-</text>
-<text x="386" y="428">
-6LoWPan
-</text>
-<text x="402" y="444">
-Mesh
-</text>
-<text x="746" y="444">
-Bluetooth Low Energy
-</text>
-<text x="74" y="492">
-Direct Nodes
-</text>
-<text x="306" y="492">
-Indirect Node
-</text>
-<text x="514" y="492">
-Indirect Node
-</text>
-<text x="730" y="492">
-Indirect Node
-</text>
-<text x="74" y="524">
-IoT Device
-</text>
-<text x="298" y="524">
-Microcontroller
-</text>
-<text x="506" y="524">
-Microcontroller
-</text>
-<text x="722" y="524">
-Microcontroller
-</text>
-<text x="42" y="556">
 WiFi,
 </text>
-<text x="90" y="556">
+<text x="698" y="348">
 GSM,
 </text>
-<text x="130" y="556">
+<text x="738" y="348">
 Ethernet
 </text>
-<text x="282" y="556">
-Sensors
+<text x="362" y="380">
+6LoWPan,
 </text>
-<text x="346" y="556">
-+
+<text x="434" y="380">
+Thread,
 </text>
-<text x="362" y="556">
-Actuators
+<text x="498" y="380">
+or
 </text>
-<text x="490" y="556">
-Sensors
+<text x="650" y="380">
+Zigbee,
 </text>
-<text x="554" y="556">
-+
+<text x="714" y="380">
+ZWave,
 </text>
-<text x="570" y="556">
-Actuators
+<text x="770" y="380">
+or
 </text>
-<text x="706" y="556">
-Sensors
+<text x="378" y="396">
+Bluetooth IPSP
 </text>
-<text x="770" y="556">
-+
+<text x="666" y="396">
+Bluetooth Low Energy
 </text>
-<text x="786" y="556">
-Actuators
+<text x="386" y="428">
+Embedded Linux
 </text>
-<text x="50" y="588">
-Embedded Linux or
+<text x="674" y="428">
+Embedded Linux
 </text>
-<text x="290" y="588">
-RTOS like Tock OS
-</text>
-<text x="498" y="588">
-RTOS like Tock OS
-</text>
-<text x="714" y="588">
-RTOS like Tock OS
-</text>
-<text x="18" y="604">
-High End Microcontroller
-</text>
-<text x="402" y="636">
+<text x="386" y="460">
 6LoWPan
 </text>
-<text x="418" y="652">
+<text x="402" y="476">
 Mesh
 </text>
-<text x="386" y="684">
+<text x="746" y="476">
+Bluetooth Low Energy
+</text>
+<text x="74" y="524">
+Direct Nodes
+</text>
+<text x="306" y="524">
 Indirect Node
 </text>
-<text x="378" y="716">
+<text x="530" y="524">
+Indirect Node
+</text>
+<text x="746" y="524">
+Indirect Node
+</text>
+<text x="74" y="556">
+IoT Device
+</text>
+<text x="298" y="556">
 Microcontroller
 </text>
-<text x="362" y="748">
+<text x="522" y="556">
+Microcontroller
+</text>
+<text x="738" y="556">
+Microcontroller
+</text>
+<text x="42" y="588">
+WiFi,
+</text>
+<text x="90" y="588">
+GSM,
+</text>
+<text x="130" y="588">
+Ethernet
+</text>
+<text x="282" y="588">
 Sensors
 </text>
-<text x="426" y="748">
+<text x="346" y="588">
 +
 </text>
-<text x="442" y="748">
+<text x="362" y="588">
 Actuators
 </text>
-<text x="370" y="780">
+<text x="506" y="588">
+Sensors
+</text>
+<text x="570" y="588">
++
+</text>
+<text x="586" y="588">
+Actuators
+</text>
+<text x="722" y="588">
+Sensors
+</text>
+<text x="786" y="588">
++
+</text>
+<text x="802" y="588">
+Actuators
+</text>
+<text x="50" y="620">
+Embedded Linux or
+</text>
+<text x="290" y="620">
+RTOS like Tock OS
+</text>
+<text x="514" y="620">
+RTOS like Tock OS
+</text>
+<text x="730" y="620">
+RTOS like Tock OS
+</text>
+<text x="18" y="636">
+High End Microcontroller
+</text>
+<text x="402" y="668">
+6LoWPan
+</text>
+<text x="418" y="684">
+Mesh
+</text>
+<text x="386" y="716">
+Indirect Node
+</text>
+<text x="378" y="748">
+Microcontroller
+</text>
+<text x="362" y="780">
+Sensors
+</text>
+<text x="426" y="780">
++
+</text>
+<text x="442" y="780">
+Actuators
+</text>
+<text x="370" y="812">
 RTOS like Tock OS
 </text>
 </svg>
