@@ -2,10 +2,9 @@
 
 - [Foreward - RustFest 2017 Workshop](./rustfest.md)
 - [Development Environment Setup](./setup/intro.md)
-    - [Raspberry Pi Setup - Your PC](./setup/raspi_cross.md)
-    - [Raspberry Pi Setup - The Pi](./setup/raspi_self.md)
+    - [Raspberry Pi Setup](./setup/raspi_self.md)
     - [Tock OS Setup](./setup/tock_os.md)
-- [Background Info](./background/intro.md)
+- [Background Info]()
     - [The Internet of Things](./background/iot.md)
     - [Bluetooth Low Energy](./background/ble.md)
     - [MQTT and other IoT Protocols](./background/mqtt_and_other.md)
@@ -13,18 +12,11 @@
     - [Raspberry Pi and Embedded Linux](./background/raspi.md)
     - [The Hail Board and Tock OS](./background/tock_os.md)
 - [Tock OS Work](./tock_os/intro.md)
-- [Raspberry Pi Work](./raspi/intro.md)
+- [Raspberry Pi Work]()
     - [Hello, World!](./raspi/hello_world.md)
-    - [Reading from Bluetooth](./raspi/bluetooth.md)
+    - [Talking with Bluetooth](./raspi/bluetooth.md)
     - [Talking to the Cloud](./raspi/geeny.md)
     - [Putting it together](./raspi/integration.md)
-- [Additional Challenges](./challenges/intro.md)
-    - [Local Dashboard](./challenges/dashboard.md)
-
------
-
-- [More Info](./more/intro.md)
-    - [The Internet of Things](./more/iot.md)
 
 -----
 

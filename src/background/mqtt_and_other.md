@@ -72,6 +72,18 @@ These wildcards can be repeated and combined in a single subscription request. T
 * `office/geeny/kitchen/temperature/window`
 * `office/geeny/kitchen/temperature/table`
 
+### Quality of Service
+
+MQTT allows for varying levels of guarantees regarding delivery of messages. There are three levels that can be chosen:
+
+* QoS Level 0: At Most Once
+* QoS Level 1: At Least Once
+* QoS Level 2: Exactly Once
+
+As the QoS level rises, so does the amount of overhead. QoS Level 0 message require no acknowledgement from the Broker, QoS Level 1 requires a single acknowledgement from the Broker, and QoS Level 2 requires a four part handshake before a message has completed sending.
+
+For periodic messages, such as a regular temperature reading, it may not be necessary to confirm reception (since additional messages will be sent), so QoS 0 would be a good match. For important messages that do not have side effects if applied multiple times, such as a "stop motor" command, QoS Level 1 would be a good match. For messages that must be received exactly once, such as "increase temperature 5 degrees", QoS 2 should be used.
+
 ## CoAP and other technologies
 
 Other protocols have also been created to address many of the same topics addressed by MQTT. For example, CoAP was designed to operate similarly to how REST APIs work, with two major changes:
