@@ -130,18 +130,26 @@ ssh pi@<IP ADDRESS>
 mkdir <YOUR NAME>
 ```
 
+We are going to need the IP address a lot, so let's create an environment variable.
+
+```bash
+export IP=<IP ADDRESS>
+```
+
+This allows us to substitute the `$IP` everytime we need to provide the IP address.
+
 Now you should be able to send the file to your Raspberry Pi. From the VM:
 
 ```bash
 scp \
     target/armv7-unknown-linux-gnueabihf/debug/hello-raspberry \
-    pi@<IP ADDRESS>:/home/pi/<YOUR NAME>
+    pi@$PI:/home/pi/<YOUR NAME>
 ```
 
 Finally, we should be able to log in, and run our application!
 
 ```bash
-ssh pi@<IP ADDRESS>
+ssh pi@$PI
 cd <YOUR NAME>
 ./hello-raspberry
 ```
