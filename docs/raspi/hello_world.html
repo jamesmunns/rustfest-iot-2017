@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello, World! - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="./rustfest.html"><strong>1.</strong> Foreward - RustFest 2017 Workshop</a></li><li><a href="./setup/intro.html"><strong>2.</strong> Development Environment Setup</a></li><li><ul class="section"><li><a href="./setup/raspi_self.html"><strong>2.1.</strong> Raspberry Pi Setup</a></li><li><a href="./setup/tock_os.html"><strong>2.2.</strong> Tock OS Setup</a></li></ul></li><li><strong>3.</strong> Background Info</li><li><ul class="section"><li><a href="./background/iot.html"><strong>3.1.</strong> The Internet of Things</a></li><li><a href="./background/ble.html"><strong>3.2.</strong> Bluetooth Low Energy</a></li><li><a href="./background/mqtt_and_other.html"><strong>3.3.</strong> MQTT and other IoT Protocols</a></li><li><a href="./background/cross_compiling.html"><strong>3.4.</strong> Cross Compilation</a></li><li><a href="./background/raspi.html"><strong>3.5.</strong> Raspberry Pi and Embedded Linux</a></li><li><a href="./background/tock_os.html"><strong>3.6.</strong> The Hail Board and Tock OS</a></li></ul></li><li><a href="./tock_os/intro.html"><strong>4.</strong> Tock OS Work</a></li><li><strong>5.</strong> Raspberry Pi Work</li><li><ul class="section"><li><a href="./raspi/hello_world.html" class="active"><strong>5.1.</strong> Hello, World!</a></li><li><a href="./raspi/bluetooth.html"><strong>5.2.</strong> Talking with Bluetooth</a></li><li><a href="./raspi/geeny.html"><strong>5.3.</strong> Talking to the Cloud</a></li><li><a href="./raspi/integration.html"><strong>5.4.</strong> Putting it together</a></li><li class="spacer"></li></ul></li><li>2017 James Munns, Niklas Adolfsson, Amit Levy</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="./raspi/hello_world.html#hello-world" id="hello-world"><h1>Hello, World!</h1></a>
+<a class="header" href="./raspi/hello_world.html#a-little-setup" id="a-little-setup"><h2>A little setup</h2></a>
+<blockquote>
+<p>Having trouble with the setup? Don't hesitate to ask for help!</p>
+</blockquote>
+<p>Open up the VM, make yourself comfortable. Sorry for the <code>en-us</code> environment and keyboard.</p>
+<p>You can choose to either interact with the graphic environment, or you can SSH into the virtual machine. If you want to SSH, don't forget to foreward the port from host to the virtual machine. SSH is served up on the VM's port 22.</p>
+<ul>
+<li>Username: <code>rustfest</code></li>
+<li>Password: <code>rustfest</code></li>
+</ul>
+<p>Now would also be a good time to add your SSH public key to the VM's <code>~/.ssh/authorized_keys</code>, and add an entry into your SSH config <code>~/.ssh/config</code> that looks like this:</p>
+<pre><code class="language-text">host rustfest
+    Hostname localhost
+    User rustfest
+    IdentityFile /home/$YOU/.ssh/id_rsa
+    Port $MAPPED_PORT
+</code></pre>
+<p>This will save you some typing, but is completely optional.</p>
+<a class="header" href="./raspi/hello_world.html#hello-host" id="hello-host"><h2>Hello, Host!</h2></a>
+<p>Lets make a new project</p>
+<pre><code class="language-bash">cargo new --bin hello-raspberry
+cd hello-raspberry
+</code></pre>
+<p>Now lets compile and run it here</p>
+<pre><code class="language-bash">cargo build
+cargo run
+</code></pre>
+<p>You should get something like this:</p>
+<pre><code class="language-text">rustfest@rustfest-2017:~/hello-raspberry$ cargo build
+   Compiling hello-raspberry v0.1.0 (file:///home/rustfest/hello-raspberry)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.74 secs
+
+rustfest@rustfest-2017:~/hello-raspberry$ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
+     Running `target/debug/hello-raspberry`
+Hello, world!
+</code></pre>
+<p>Lets look a bit closer at what we've done. We can use the <code>file</code> command to see what type of executable we've generated, and the <code>ldd</code> command to see what dynamic libraries we link to:</p>
+<pre><code class="language-bash">file target/debug/hello-raspberry
+ldd target/debug/hello-raspberry
+</code></pre>
+<a class="header" href="./raspi/hello_world.html#hello-target" id="hello-target"><h2>Hello, Target!</h2></a>
+<p>Now lets build for the Raspberry Pi. Remember, the target triple we want here is <code>armv7-unknown-linux-gnueabihf</code>. This is normally done like this:</p>
+<pre><code class="language-bash">cargo build --target armv7-unknown-linux-gnueabihf
+</code></pre>
+<p>Give it a try!</p>
+<p>Back yet?</p>
+<p>Yeah, it didn't work. We haven't given Cargo enough information. Lets check out the file <code>~/pi-crossenv</code>. Print it out with this command:</p>
+<pre><code class="language-bash">cat ~/pi-crossenv
+</code></pre>
+<p>These are the important lines (for now):</p>
+<pre><code class="language-text">export CARGO_TARGET_ARMV7_UNKNOWN_LINUX_GNUEABIHF_LINKER=arm-linux-gnueabihf-gcc
+export CC_armv7_unknown_linux_gnueabihf=arm-linux-gnueabihf-gcc
+export CXX_armv7_unknown_linux_gnueabihf=arm-linux-gnueabihf-g++
+</code></pre>
+<p>These lines tell Cargo what C Compiler, C++ Compiler, and Linker to use when compiling for the <code>armv7-unknown-linux-gnueabihf</code> target.</p>
+<p>Lets add these variables to our environment with the <code>source</code> command.</p>
+<pre><code class="language-bash">source ~/pi-crossenv
+</code></pre>
+<p>Now we can retry cross compiling.</p>
+<pre><code class="language-bash">cargo build --target armv7-unknown-linux-gnueabihf
+</code></pre>
+<p>This time you should see something like this:</p>
+<pre><code class="language-text">rustfest@rustfest-2017:~/hello-raspberry$ cargo build --target armv7-unknown-linux-gnueabihf
+   Compiling hello-raspberry v0.1.0 (file:///home/rustfest/hello-raspberry)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.70 secs
+</code></pre>
+<p>Lets check out the generated binary with <code>file</code>:</p>
+<pre><code class="language-bash">file target/armv7-unknown-linux-gnueabihf/debug/hello-raspberry
+</code></pre>
+<p>How does that look compared to our other binary?</p>
+<a class="header" href="./raspi/hello_world.html#hello-raspberry" id="hello-raspberry"><h2>Hello, Raspberry</h2></a>
+<p>Now, lets log on to your Raspberry Pi. There are only 5 of them, so you might have to share.</p>
+<p>You should have gotten the IP address of your Raspberry Pi on a post-it note. Lets login, and create a directory for you to work in.</p>
+<ul>
+<li>Username: <code>pi</code></li>
+<li>Password: <code>internetofthings</code></li>
+</ul>
+<pre><code class="language-bash">ssh pi@&lt;IP ADDRESS&gt;
+
+mkdir &lt;YOUR NAME&gt;
+</code></pre>
+<p>Now you should be able to send the file to your Raspberry Pi. From the VM:</p>
+<pre><code class="language-bash">scp \
+    target/armv7-unknown-linux-gnueabihf/debug/hello-raspberry \
+    pi@&lt;IP ADDRESS&gt;:/home/pi/&lt;YOUR NAME&gt;
+</code></pre>
+<p>Finally, we should be able to log in, and run our application!</p>
+<pre><code class="language-bash">ssh pi@&lt;IP ADDRESS&gt;
+cd &lt;YOUR NAME&gt;
+./hello-raspberry
+</code></pre>
+<p>If it all worked, you should see something like this:</p>
+<pre><code class="language-text">pi@raspberrypi:~/james $ ./hello-raspberry
+Hello, world!
+</code></pre>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="./tock_os/intro.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="./raspi/bluetooth.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="./tock_os/intro.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="./raspi/bluetooth.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

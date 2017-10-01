@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>The Internet of Things - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="./rustfest.html"><strong>1.</strong> Foreward - RustFest 2017 Workshop</a></li><li><a href="./setup/intro.html"><strong>2.</strong> Development Environment Setup</a></li><li><ul class="section"><li><a href="./setup/raspi_self.html"><strong>2.1.</strong> Raspberry Pi Setup</a></li><li><a href="./setup/tock_os.html"><strong>2.2.</strong> Tock OS Setup</a></li></ul></li><li><strong>3.</strong> Background Info</li><li><ul class="section"><li><a href="./background/iot.html" class="active"><strong>3.1.</strong> The Internet of Things</a></li><li><a href="./background/ble.html"><strong>3.2.</strong> Bluetooth Low Energy</a></li><li><a href="./background/mqtt_and_other.html"><strong>3.3.</strong> MQTT and other IoT Protocols</a></li><li><a href="./background/cross_compiling.html"><strong>3.4.</strong> Cross Compilation</a></li><li><a href="./background/raspi.html"><strong>3.5.</strong> Raspberry Pi and Embedded Linux</a></li><li><a href="./background/tock_os.html"><strong>3.6.</strong> The Hail Board and Tock OS</a></li></ul></li><li><a href="./tock_os/intro.html"><strong>4.</strong> Tock OS Work</a></li><li><strong>5.</strong> Raspberry Pi Work</li><li><ul class="section"><li><a href="./raspi/hello_world.html"><strong>5.1.</strong> Hello, World!</a></li><li><a href="./raspi/bluetooth.html"><strong>5.2.</strong> Talking with Bluetooth</a></li><li><a href="./raspi/geeny.html"><strong>5.3.</strong> Talking to the Cloud</a></li><li><a href="./raspi/integration.html"><strong>5.4.</strong> Putting it together</a></li><li class="spacer"></li></ul></li><li>2017 James Munns, Niklas Adolfsson, Amit Levy</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="./background/iot.html#the-internet-of-things" id="the-internet-of-things"><h1>The Internet of Things</h1></a>
+<a class="header" href="./background/iot.html#what-is-the-internet-of-things" id="what-is-the-internet-of-things"><h2>What is the Internet of Things?</h2></a>
+<p>Generally, the Internet of Things covers devices that are now capable of communicating with other systems, either locally (like Bluetooth), or globally, via the Internet. People want to control items in the physical world similarly to how they are able to control and interconnect software</p>
+<a class="header" href="./background/iot.html#where-did-it-come-from" id="where-did-it-come-from"><h3>Where did it come from?</h3></a>
+<p>IoT has risen from two main sources:</p>
+<ol>
+<li>Industrial machinery that was &quot;smart&quot; before, but had little or no device to device connectivity</li>
+<li>Consumer devices, which are now cheap enough or resource efficient enough to include a networked component</li>
+</ol>
+<p>As components used in devices like wireless routers and mobile phones have become more available, as well as cheaper, hardware developers have begun using them in other products, including IoT devices.</p>
+<p>Around the same time, the maker movement, especially with the introduction of platforms like Arduino and the Raspberry Pi, have made embedded development much more accessible, both from a price perspective, as well as learning curve, and available resources.</p>
+<p>We've now ended up with a new wave of embedded systems developers who are interested in the Internet of Things.</p>
+<a class="header" href="./background/iot.html#why-is-rust-a-good-match-for-iot" id="why-is-rust-a-good-match-for-iot"><h2>Why is Rust a good match for IoT?</h2></a>
+<p>Over the last 20 years or so, we've gotten <em>okay</em> at connecting computers to the Internet, as well as keeping them decently secure. This has happened through:</p>
+<ul>
+<li>Use of well known, actively developed components</li>
+<li>Healthy respect for security updates and patches</li>
+<li>Multiple layers of security, including isolation</li>
+<li>Sane defaults</li>
+<li>Memory safe languages (usually garbage collected)</li>
+<li>Willingness to trade some performance for better security</li>
+<li>Improved security implementation in hardware and software</li>
+</ul>
+<p>However on IoT devices, especially low end or battery powered devices, most developers are forced to minimize overhead. Many embedded systems and software were never originally designed to be Internet connected, let alone publicly available.</p>
+<p>Rust allows us to move lots of the safety checks from runtime to compile time, allowing us to avoid some of the most common security holes such as buffer overflows, use after frees, etc. that are very common in protocol and parser implementations.</p>
+<p>Additionally, Rust ships with Cargo, the default build tool and package manager for Rust development, which allows easier reuse of code.</p>
+<p>Because Rust is based on LLVM, we have either full or partial support for some of the most common hardware used in IoT today, including:</p>
+<ul>
+<li>ARM Cortex-A</li>
+<li>ARM Cortex-M</li>
+<li>MIPS</li>
+<li>x86[-64]</li>
+</ul>
+<a class="header" href="./background/iot.html#architecture" id="architecture"><h2>Architecture</h2></a>
+<p align="center">
+<img title="The Internet of Things, a basic diagram" src="assets/iot.svg">
+</p>
+<p>Since IoT covers such a wide range of topics and devices, different approaches are needed to solve different problems</p>
+<a class="header" href="./background/iot.html#direct-nodes" id="direct-nodes"><h3>Direct Nodes</h3></a>
+<p>Direct Nodes are devices that are capable of connecting directly to the Internet, typically over WiFi, GSM/Cell, or Ethernet. Since these communication methods are relatively high-power, direct nodes tend to either be wall-powered, or if battery powered, they connect infrequently to save battery life.</p>
+<p>These could include devices running Linux, like a Raspberry Pi, or high end microcontroller systems, like the ESP32.</p>
+<p>Speaking a full &quot;Internet Protocol&quot;, including components like SSL, IPv6, and more requires computational and memory resources that many device can't handle</p>
+<p>Examples:</p>
+<ul>
+<li>Amazon Alexa</li>
+<li>Smart TVs and other Appliances</li>
+<li>Nest</li>
+</ul>
+<a class="header" href="./background/iot.html#indirect-nodes" id="indirect-nodes"><h3>Indirect Nodes</h3></a>
+<p>For devices where power or capabilities prevent direct Internet access, the next most common kind of IoT device connects to the Internet with assistance from a more powerful device.</p>
+<p>This could mean the device is equipped to use a low power interface, such as Zigbee, Bluetooth, 6LoWPan, or Thread, which are designed to be power efficient, and were designed with low resource devices in mind.</p>
+<p>For protocols like 6LoWPan or Thread, a simple &quot;border router&quot; which translates transparently from the low power protocol to full IP can be used. For protocols which are significantly different from IP, a Smart Hub/Gateway is typically used. Gateways typically require more &quot;business logic&quot; to determine how to correctly route messages.</p>
+<p>Examples:</p>
+<ul>
+<li>Bluetooth Fitness Trackers</li>
+<li>Smart Light Bulbs</li>
+<li>Temperature Sensors</li>
+</ul>
+<a class="header" href="./background/iot.html#border-routers-and-gateways" id="border-routers-and-gateways"><h3>Border Routers and Gateways</h3></a>
+<p>As mentioned above, Border Routers and Gateways are used to assist connectivity of low power devices. Both of these devices share the same typical design:</p>
+<ul>
+<li>Wall powered</li>
+<li>Ethernet, Cell, or WiFi connectivity</li>
+<li>Low-power radios/interfaces (LPWAN, PAN) for communication with Indirect Nodes</li>
+</ul>
+<p>For border routers, little additional functionality may be necessary, other than converting from 6LoWPan to IPv6. These device function similarly to WiFi routers: transparently connecting the devices to the Internet.</p>
+<p>For gateways, it is typically necessary to understand the devices that will be connected. This could be as simple as mapping local protocol constructs like Services and Characteristics to some kind of IP construct, such as URIs/endpoints.</p>
+<p>Both of these devices may also be a &quot;Direct Node&quot; themselves, while also providing Border Router or Gateway functionality.</p>
+<ul>
+<li>&quot;Smart Hub&quot;/&quot;Smart Gateway&quot; devices</li>
+<li>Thermostat that communicates with Temperature Sensors</li>
+<li>Raspberry Pi running <a href="https://home-assistant.io/">Home Assistant</a></li>
+</ul>
+<a class="header" href="./background/iot.html#the-cloud" id="the-cloud"><h3>The Cloud</h3></a>
+<ul>
+<li>A central point for all devices to connect</li>
+<li>Enables additional functionality, such as maintaining history, connecting dissimilar devices to each other</li>
+</ul>
+<p>Typically speaks device-friendly protocols such as MQTT, CoAP, LWM2M, etc., as well as protocols useful for browsers and apps, such as REST, Websockets, etc.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="./setup/tock_os.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="./background/ble.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="./setup/tock_os.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="./background/ble.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

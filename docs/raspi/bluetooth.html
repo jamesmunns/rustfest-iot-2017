@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Talking with Bluetooth - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="./rustfest.html"><strong>1.</strong> Foreward - RustFest 2017 Workshop</a></li><li><a href="./setup/intro.html"><strong>2.</strong> Development Environment Setup</a></li><li><ul class="section"><li><a href="./setup/raspi_self.html"><strong>2.1.</strong> Raspberry Pi Setup</a></li><li><a href="./setup/tock_os.html"><strong>2.2.</strong> Tock OS Setup</a></li></ul></li><li><strong>3.</strong> Background Info</li><li><ul class="section"><li><a href="./background/iot.html"><strong>3.1.</strong> The Internet of Things</a></li><li><a href="./background/ble.html"><strong>3.2.</strong> Bluetooth Low Energy</a></li><li><a href="./background/mqtt_and_other.html"><strong>3.3.</strong> MQTT and other IoT Protocols</a></li><li><a href="./background/cross_compiling.html"><strong>3.4.</strong> Cross Compilation</a></li><li><a href="./background/raspi.html"><strong>3.5.</strong> Raspberry Pi and Embedded Linux</a></li><li><a href="./background/tock_os.html"><strong>3.6.</strong> The Hail Board and Tock OS</a></li></ul></li><li><a href="./tock_os/intro.html"><strong>4.</strong> Tock OS Work</a></li><li><strong>5.</strong> Raspberry Pi Work</li><li><ul class="section"><li><a href="./raspi/hello_world.html"><strong>5.1.</strong> Hello, World!</a></li><li><a href="./raspi/bluetooth.html" class="active"><strong>5.2.</strong> Talking with Bluetooth</a></li><li><a href="./raspi/geeny.html"><strong>5.3.</strong> Talking to the Cloud</a></li><li><a href="./raspi/integration.html"><strong>5.4.</strong> Putting it together</a></li><li class="spacer"></li></ul></li><li>2017 James Munns, Niklas Adolfsson, Amit Levy</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="./raspi/bluetooth.html#talking-with-bluetooth" id="talking-with-bluetooth"><h1>Talking with Bluetooth</h1></a>
+<p>Before we get started, you'll need a Tock board. On the bottom, there should be a sticker with a MAC address that looks like <code>AA:BB:CC:DD:EE:FF</code>. We'll need this later.</p>
+<p>If you're using the default Tock firmware, you'll also need to know the Service and Characteristics you want to interact with. These are probably:</p>
+<ul>
+<li>Service: <code>00001801-0000-1000-8000-00805f9b34fb</code>
+<ul>
+<li>Characteristic: <code>00002a05-0000-1000-8000-00805f9b34fb</code></li>
+</ul>
+</li>
+</ul>
+<p>To start off, we'll be using a crate called <code>easy-bluez</code>, which exposes the ability to read and write to Bluetooth Low Energy devices. This crate automatically handles the scanning, connection, and polling of the characteristics of your choosing. Under the hood, <code>easy-bluez</code> uses a crate called <code>blurz</code> to interact with Linux's <code>BlueZ</code> service over <code>dbus</code>.</p>
+<a class="header" href="./raspi/bluetooth.html#a-quick-reminder" id="a-quick-reminder"><h2>A quick reminder</h2></a>
+<p>There were some other lines in <code>~/pi-crossenv</code> that we skipped over, particularly:</p>
+<pre><code class="language-text">export SYSROOT=/raspi_stretch
+export RPI_USR_LIB_DIR=${SYSROOT}/usr/lib/arm-linux-gnueabihf
+export RPI_LIB_DIR=${SYSROOT}/lib/arm-linux-gnueabihf
+
+export PKG_CONFIG_PATH=${RPI_USR_LIB_DIR}/pkgconfig
+export PKG_CONFIG_LIBDIR=${RPI_USR_LIB_DIR}/pkgconfig:/usr/share/pkgconfig
+export PKG_CONFIG_SYSROOT_DIR=${SYSROOT}
+export PKG_CONFIG_ALLOW_CROSS=1
+export RUSTFLAGS=&quot;-L ${RPI_USR_LIB_DIR} -L ${RPI_LIB_DIR} -lsystemd&quot;
+</code></pre>
+<p>Since <code>easy-bluez</code> uses DBus under the hood to talk to BlueZ, it is necessary to dynamically link to <code>libdbus-1</code>, and its dependencies. Since we want to make sure that our cross compilation environment matches our target, we've set up a <code>SYSROOT</code> at <code>/raspi_stretch</code>. This is a simulated version of the root filesystem found on our Raspberry Pis. This was populated using a tool called <code>multistrap</code>, which installs debian packages from other architectures to a specified location.</p>
+<p>These environment variables instruct Cargo where to look for dynamically linked libraries, which are checked at compile time.</p>
+<a class="header" href="./raspi/bluetooth.html#set-up-easy-bluez" id="set-up-easy-bluez"><h2>Set up <code>easy-bluez</code></h2></a>
+<p>Lets set up a new project inside the VM</p>
+<pre><code class="language-bash">cd ~
+cargo new --bin hello-bluetooth
+cd hello-bluetooth
+</code></pre>
+<p>Now, lets add <code>easy-bluez</code> as a dependency, and make sure everything still builds. Add these lines to your <code>Cargo.toml</code>:</p>
+<pre><code class="language-text">[dependencies]
+easy-bluez = &quot;0.1&quot;
+</code></pre>
+<p>In your <code>src/main.rs</code>, add these lines:</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate easy_bluez;
+use easy_bluez::EasyBluez;
+
+fn main() {
+    println!(&quot;Hello, world!&quot;);
+}
+</code></pre></pre>
+<p>Now we're ready to compile! Don't forget to <code>source ~/pi-crossenv</code> if you've closed your window. After a bit of compiling, you should see something like this:</p>
+<pre><code class="language-text">...
+   Compiling hello-bluetooth v0.1.0 (file:///home/rustfest/hello-bluetooth)
+warning: unused import: `easy_bluez::EasyBluez`
+ --&gt; src/main.rs:2:5
+  |
+2 | use easy_bluez::EasyBluez;
+  |     ^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: #[warn(unused_imports)] on by default
+    Finished dev [unoptimized + debuginfo] target(s) in 59.69 secs
+rustfest@rustfest-2017:~/hello-bluetooth$
+</code></pre>
+<p>If you don't see something like this, ask for help!</p>
+<a class="header" href="./raspi/bluetooth.html#read-from-your-hail-board" id="read-from-your-hail-board"><h2>Read from your Hail board</h2></a>
+<p>Okay, lets actually read from your device. <code>easy-bluez</code> has a method called <code>poll</code>, which you can use like this:</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate easy_bluez;
+use easy_bluez::EasyBluez;
+
+fn main() {
+    let ez = EasyBluez::new().run();
+
+    let rx_poll = ez.poll(
+        &quot;CF:75:CE:86:6D:02&quot;,                    // MAC Address
+        &quot;00000001-c001-de30-cabb-785feabcd123&quot;, // Service
+        &quot;0000c01d-c001-de30-cabb-785feabcd123&quot;, // Characteristic
+    ).expect(&quot;Bad data!&quot;);
+
+    // Blocking wait for a message to be received
+    if let Ok(msg) = rx_poll.recv() {
+        println!(&quot;{:?}&quot;, msg);
+    }
+}
+</code></pre></pre>
+<p><code>poll</code> returns a <code>Result&lt;Receiver&lt;Box&lt;[u8]&gt;&gt;&gt;</code>, which will provide you with a stream of data obtained from the device, exposed as heap-allocated arrays of bytes.</p>
+<p>Try building this code, and running it on your Raspberry Pi. As a note, <code>sudo</code> is required to interact with BlueZ, so you will need to run your binary with <code>sudo ./hello-bluetooth</code>. Don't forget to use your MAC Address, Service, and Characteristic!</p>
+<p>Once you are able to read a single message, check out the documentation for <a href="https://doc.rust-lang.org/std/sync/mpsc/struct.Receiver.html">Receiver<T></a>, and try processing messages as they arrive.</p>
+<a class="header" href="./raspi/bluetooth.html#write-to-your-hail-board" id="write-to-your-hail-board"><h2>Write to your Hail board</h2></a>
+<p><code>easy-bluez</code> has another method called <code>writeable()</code>, which can be used like this:</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate easy_bluez;
+use easy_bluez::EasyBluez;
+use std::time::Duration;
+use std::thread::sleep;
+
+fn main() {
+    let ez = EasyBluez::new().run();
+
+    let tx_write = ez.writeable(
+        &quot;CF:75:CE:86:6D:02&quot;,                    // MAC Address
+        &quot;00000001-c001-de30-cabb-785feabcd123&quot;, // Service
+        &quot;0000da7a-c001-de30-cabb-785feabcd123&quot;, // Characteristic
+    ).expect(&quot;Bad data!&quot;);
+
+    // Send a single message to the device
+    tx_write.send(Box::new([0x00])).unwrap();
+
+    // Sleep for a bit to prevent returning before the message is sent
+    sleep(Duration::from_secs(1));
+}
+</code></pre></pre>
+<p>Try building this code, and running on your Raspberry Pi.</p>
+<a class="header" href="./raspi/bluetooth.html#putting-it-together" id="putting-it-together"><h2>Putting it together</h2></a>
+<p>Once you have reading and writing working, try combining them!</p>
+<p>For example, you could:</p>
+<ul>
+<li>Write a message every 4th receive</li>
+<li>Send messages at a fixed interval, while processing all incoming messages</li>
+</ul>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="./raspi/hello_world.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="./raspi/geeny.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="./raspi/hello_world.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="./raspi/geeny.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

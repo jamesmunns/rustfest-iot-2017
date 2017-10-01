@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Talking to the Cloud - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="./rustfest.html"><strong>1.</strong> Foreward - RustFest 2017 Workshop</a></li><li><a href="./setup/intro.html"><strong>2.</strong> Development Environment Setup</a></li><li><ul class="section"><li><a href="./setup/raspi_self.html"><strong>2.1.</strong> Raspberry Pi Setup</a></li><li><a href="./setup/tock_os.html"><strong>2.2.</strong> Tock OS Setup</a></li></ul></li><li><strong>3.</strong> Background Info</li><li><ul class="section"><li><a href="./background/iot.html"><strong>3.1.</strong> The Internet of Things</a></li><li><a href="./background/ble.html"><strong>3.2.</strong> Bluetooth Low Energy</a></li><li><a href="./background/mqtt_and_other.html"><strong>3.3.</strong> MQTT and other IoT Protocols</a></li><li><a href="./background/cross_compiling.html"><strong>3.4.</strong> Cross Compilation</a></li><li><a href="./background/raspi.html"><strong>3.5.</strong> Raspberry Pi and Embedded Linux</a></li><li><a href="./background/tock_os.html"><strong>3.6.</strong> The Hail Board and Tock OS</a></li></ul></li><li><a href="./tock_os/intro.html"><strong>4.</strong> Tock OS Work</a></li><li><strong>5.</strong> Raspberry Pi Work</li><li><ul class="section"><li><a href="./raspi/hello_world.html"><strong>5.1.</strong> Hello, World!</a></li><li><a href="./raspi/bluetooth.html"><strong>5.2.</strong> Talking with Bluetooth</a></li><li><a href="./raspi/geeny.html" class="active"><strong>5.3.</strong> Talking to the Cloud</a></li><li><a href="./raspi/integration.html"><strong>5.4.</strong> Putting it together</a></li><li class="spacer"></li></ul></li><li>2017 James Munns, Niklas Adolfsson, Amit Levy</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="./raspi/geeny.html#talking-to-the-cloud" id="talking-to-the-cloud"><h1>Talking to the Cloud</h1></a>
+<p>It's time to start talking with the Internet! For this exercise, we will be using a publicly available MQTT Broker provided by Hive MQ to demonstrate some basic functionality. We'll be using a library called <a href="https://docs.rs/rumqtt/0.10.0/rumqtt/">rumqtt</a> to communicate as an MQTT Client.</p>
+<p>Lets make a new project, and add <code>rumqtt</code> to it. In your Virtual Machine:</p>
+<pre><code class="language-bash">cargo new --bin hello-mqtt
+</code></pre>
+<p>In your Cargo.toml:</p>
+<pre><code>[dependencies]
+rumqtt = &quot;0.10&quot;
+</code></pre>
+<p>In your <code>src/main.rs</code></p>
+<pre><code>extern crate rumqtt;
+</code></pre>
+<a class="header" href="./raspi/geeny.html#interact-over-mqtt" id="interact-over-mqtt"><h2>Interact over MQTT</h2></a>
+<p>For easy debugging, we'll use HiveMQ's <a href="http://www.hivemq.com/demos/websocket-client/">Live Dashboard</a>. You can open a browser window here, and press &quot;Connect&quot;. You will be able to add subscription topics, as well as send messages to topics.</p>
+<p>You will be able to connect to the same server using <code>rumqtt</code>, and see all messages sent back and forth</p>
+<blockquote>
+<p>WARNING: This is a publically used server, and is typically very busy with people sending all kinds of junk (and non-junk) data. Be careful when subscribing to wildcard topics with either <code>+</code> or <code>#</code>. I suggest using a path something like:</p>
+<p><code>rustfest/YOUR_NAME/foo/bar</code></p>
+</blockquote>
+<a class="header" href="./raspi/geeny.html#sending-messages" id="sending-messages"><h2>Sending Messages</h2></a>
+<p>We'll start off with sending messages. Here is an example of connecting to the broker mentioned above, and sending a single message. You should see the message appear in the <a href="http://www.hivemq.com/demos/websocket-client/">Live Dashboard</a> window.</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate rumqtt;
+use std::time::Duration;
+use std::thread::sleep;
+fn main() {
+
+    let opts = rumqtt::MqttOptions::new()
+        .set_broker(&quot;broker.mqttdashboard.com:1883&quot;)
+        .set_client_id(&quot;demo-mqtt&quot;)
+        .set_keep_alive(5)
+        .set_reconnect(10);
+
+    let mut client = rumqtt::MqttClient::start(opts, None).unwrap();
+
+    client
+        .publish(
+            &quot;rustfest/james/demo&quot;,
+            rumqtt::QoS::Level0,
+            String::from(&quot;Hello, MQTT!&quot;).into_bytes(),
+        ).unwrap();
+
+    // Give time for the message to be sent
+    sleep(Duration::from_secs(3));
+}
+</code></pre></pre>
+<a class="header" href="./raspi/geeny.html#receiving-messages" id="receiving-messages"><h2>Receiving Messages</h2></a>
+<p>Here is an example which allows you to listen incoming messages for 30 seconds. After starting this client, you should be able to send messages from the <a href="http://www.hivemq.com/demos/websocket-client/">Live Dashboard</a>, and have them appear on your client.</p>
+<pre><pre class="playpen"><code class="language-rust">extern crate rumqtt;
+
+use std::time::Duration;
+use std::thread::sleep;
+
+fn main() {
+    // Configure the client
+    let opts = rumqtt::MqttOptions::new()
+        .set_broker(&quot;broker.mqttdashboard.com:1883&quot;)
+        .set_client_id(&quot;james-demo-mqtt&quot;)
+        .set_keep_alive(5)
+        .set_reconnect(10);
+
+    // Provide a callback for all incoming messages
+    let msg_handler = rumqtt::MqttCallback::new().on_message(|message| {
+        println!(&quot;- Topic: {}\n  Message: {}&quot;,
+                message.topic.to_string(),
+                String::from_utf8_lossy(message.payload.as_ref())
+        );
+    });
+
+    // Start the client
+    let mut client = rumqtt::MqttClient::start(opts, Some(msg_handler)).unwrap();
+
+    // Subscribe to topics
+    client.subscribe(vec![(&quot;rustfest/#&quot;, rumqtt::QoS::Level0)]).unwrap();
+
+    // Give time for the message(s) to arrive
+    sleep(Duration::from_secs(30));
+}
+</code></pre></pre>
+<a class="header" href="./raspi/geeny.html#a-quick-note-about-security" id="a-quick-note-about-security"><h2>A quick note about security</h2></a>
+<p>In this demo we are using MQTT, rather than MQTTS. This is mainly due to the fact that the demonstration broker we are using does not support MQTTS.</p>
+<p>It is always recommended to use SSL when possible, otherwise, all data and login credentials are sent and received in plain text. When using SSL, you can make the following changes to the client configuration:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let opts = rumqtt::MqttOptions::new()
+
+    // Port 8883 is typically MQTTS
+    .set_broker(&quot;broker.mqttdashboard.com:8883&quot;)
+
+    // What certificates to validate the server with
+    .set_ca(&quot;/etc/ssl/certs/ca-certificates.crt&quot;)
+
+    // Force verification of the certificates
+    .set_should_verify_ca(true)
+
+    // Same as above
+    .set_client_id(&quot;demo-mqtt&quot;)
+    .set_keep_alive(5)
+    .set_reconnect(10);
+#}</code></pre></pre>
+<a class="header" href="./raspi/geeny.html#put-it-together" id="put-it-together"><h2>Put it together</h2></a>
+<p>Try creating a client that responds to all incoming messages on the same topic.</p>
+<p>If you have time, try sending and receiving data formatted as JSON using <a href="https://github.com/serde-rs/json">Serde JSON</a></p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="./raspi/bluetooth.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="./raspi/integration.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="./raspi/bluetooth.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="./raspi/integration.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

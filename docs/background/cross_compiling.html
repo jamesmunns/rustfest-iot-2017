@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cross Compilation - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="./rustfest.html"><strong>1.</strong> Foreward - RustFest 2017 Workshop</a></li><li><a href="./setup/intro.html"><strong>2.</strong> Development Environment Setup</a></li><li><ul class="section"><li><a href="./setup/raspi_self.html"><strong>2.1.</strong> Raspberry Pi Setup</a></li><li><a href="./setup/tock_os.html"><strong>2.2.</strong> Tock OS Setup</a></li></ul></li><li><strong>3.</strong> Background Info</li><li><ul class="section"><li><a href="./background/iot.html"><strong>3.1.</strong> The Internet of Things</a></li><li><a href="./background/ble.html"><strong>3.2.</strong> Bluetooth Low Energy</a></li><li><a href="./background/mqtt_and_other.html"><strong>3.3.</strong> MQTT and other IoT Protocols</a></li><li><a href="./background/cross_compiling.html" class="active"><strong>3.4.</strong> Cross Compilation</a></li><li><a href="./background/raspi.html"><strong>3.5.</strong> Raspberry Pi and Embedded Linux</a></li><li><a href="./background/tock_os.html"><strong>3.6.</strong> The Hail Board and Tock OS</a></li></ul></li><li><a href="./tock_os/intro.html"><strong>4.</strong> Tock OS Work</a></li><li><strong>5.</strong> Raspberry Pi Work</li><li><ul class="section"><li><a href="./raspi/hello_world.html"><strong>5.1.</strong> Hello, World!</a></li><li><a href="./raspi/bluetooth.html"><strong>5.2.</strong> Talking with Bluetooth</a></li><li><a href="./raspi/geeny.html"><strong>5.3.</strong> Talking to the Cloud</a></li><li><a href="./raspi/integration.html"><strong>5.4.</strong> Putting it together</a></li><li class="spacer"></li></ul></li><li>2017 James Munns, Niklas Adolfsson, Amit Levy</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="./background/cross_compiling.html#cross-compilation" id="cross-compilation"><h1>Cross Compilation</h1></a>
+<p>When developing software in a desktop or server context, the <strong>Target</strong> environment (where the software runs) is usually the same, or similar, to the <strong>Host</strong> environment (where the software is built/compiled). For interpreted languages, like Python, this is not a problem, as the local interpreter manages the differences. For compiled languages, it is necessary to have a compiler capable of running on the <strong>Host</strong> environment, but produce a binary usable on the <strong>Target</strong> environment.</p>
+<p>For compilers like GCC, it is necessary to have a specific set of compiler tools built for the (<strong>Host</strong>, <strong>Target</strong>) set. Other compilers like LLVM (which Rust is built on top of), support multiple <strong>Target</strong>s with the same compiler.</p>
+<p>Rust officially supports a number of platforms, with different levels of guaranteed functionality. A list of these platforms can be found in the official <a href="https://forge.rust-lang.org/platform-support.html">Rust Platform Documentation</a>.</p>
+<a class="header" href="./background/cross_compiling.html#triples" id="triples"><h2>Triples</h2></a>
+<p>When talking about Hosts and Targets, we typically refer to each of them based on a &quot;Triple&quot;, which is a short description of the CPU Architecture, the operating system, and any specific capabilities the platform supports. Definitions of triples vary a bit between LLVM and GCC, though we will mainly use the LLVM version.</p>
+<p>A Host with an x86-64 CPU processor, running Linux, using glibc would have a triple of <code>x86_64-unknown-linux-gnu</code> (the &quot;unknown&quot; part here means there is no distribution specific assumptions made, and should work on any Linux system). If the Host were to use MUSL instead of glibc, it would have a triple of <code>x86_64-unknown-linux-musl</code>.</p>
+<p>A target with an ARMv7 processor, running Linux, using glibc with hardware float support would have a triple of <code>armv7-unknown-linux-gnueabihf</code>.</p>
+<a class="header" href="./background/cross_compiling.html#something-similar---armv7hf" id="something-similar---armv7hf"><h2>Something Similar - ARMv7HF</h2></a>
+<p>When compiling for the Raspberry Pi, our Host and Target are generally similar. They are both running Linux, which abstracts away much of the low level interactions with the system. Rust and LLVM know how to compile code for the Raspberry Pi, however, compiling your code is only one part of the story.</p>
+<a class="header" href="./background/cross_compiling.html#what-rust-can-do-and-what-it-cant" id="what-rust-can-do-and-what-it-cant"><h3>What Rust can do, and what it can't</h3></a>
+<a class="header" href="./background/cross_compiling.html#rust-toolchains" id="rust-toolchains"><h4>Rust Toolchains</h4></a>
+<p>When compiling your code, there are typically two &quot;implicit&quot; libraries used. <code>core</code>, and <code>std</code>.</p>
+<p><code>core</code> contains very low level abstractions for interacting with primitive types like <code>u32</code> and <code>i64</code>, use of types like <code>str</code> and <code>slice</code>s, <code>Result</code> and <code>Option</code> types, and more.</p>
+<p><code>std</code> contains higher level functionality, such as Heap allocated datatypes including <code>String</code> and <code>Vec</code>, <code>collection</code>s like <code>HashMap</code> and <code>BTree</code>, <code>thread</code>s, and even macros like <code>println!()</code>.</p>
+<p>Instead of compiling components from <code>core</code> and <code>std</code> on every build, these components are generated as pre-built libraries, and linked into your application as necessary to save time. These components, when put together are called a <code>toolchain</code>.</p>
+<p>In order to compile for a target, you will need to obtain a toolchain for that target. The toolchain is only specific to the target, so different hosts can use the same target toolchain.</p>
+<p>If you have installed Rust using <code>rustup</code>, adding a an officially supported target is as simple as:</p>
+<pre><code class="language-bash">rustup target add armv7-unknown-linux-gnueabihf
+</code></pre>
+<a class="header" href="./background/cross_compiling.html#linking" id="linking"><h4>Linking</h4></a>
+<p>Currently, Rust does not use LLVM's linker, called <code>lld</code>. There is <a href="https://github.com/rust-lang/rust/issues/39915">current work</a> to change this, but it is still a work in progress. In the meantime, Rust uses the GCC linker, <code>ld</code>. Unfortunately as mentioned above, GCC tools (including <code>ld</code>) are specfic to a set of (<code>Host</code> and <code>Target</code>). This means it is necessary to install a GCC toolchain for the Host and Target for your cross compilation.</p>
+<a class="header" href="./background/cross_compiling.html#not-every-crate-is-pure-statically-linked-rust" id="not-every-crate-is-pure-statically-linked-rust"><h3>Not every crate is pure, statically linked Rust!</h3></a>
+<p>Some crates are used for wrapping existing C or C++ libraries. When compiling these crates, it is necessary to have a C/C++ compiler for the core of those libraries.</p>
+<p>Other crates are used for wrapping Dynamically Linked Libraries, like OpenSSL or DBus. Care must be taken when compiling these libraries that the Host Environment and the Target Environment match, or the host is properly configured for the target.</p>
+<a class="header" href="./background/cross_compiling.html#something-different---arm-cortex-m" id="something-different---arm-cortex-m"><h2>Something Different - ARM Cortex-M</h2></a>
+<p>Cross compiling for embedded targets, like our Hail board, is a bit different.</p>
+<a class="header" href="./background/cross_compiling.html#std-vs-core" id="std-vs-core"><h3><code>std</code> vs <code>core</code></h3></a>
+<p>For embedded</p>
+<a class="header" href="./background/cross_compiling.html#xargo---building-core-from-scratch" id="xargo---building-core-from-scratch"><h3>xargo - building <code>core</code> from scratch</h3></a>
+<a class="header" href="./background/cross_compiling.html#cross--xargo" id="cross--xargo"><h3>cross + xargo</h3></a>
+<ul>
+<li>pain free embedded compilation</li>
+</ul>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="./background/mqtt_and_other.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="./background/raspi.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="./background/mqtt_and_other.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="./background/raspi.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

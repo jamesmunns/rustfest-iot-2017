@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>MQTT and other IoT Protocols - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="./rustfest.html"><strong>1.</strong> Foreward - RustFest 2017 Workshop</a></li><li><a href="./setup/intro.html"><strong>2.</strong> Development Environment Setup</a></li><li><ul class="section"><li><a href="./setup/raspi_self.html"><strong>2.1.</strong> Raspberry Pi Setup</a></li><li><a href="./setup/tock_os.html"><strong>2.2.</strong> Tock OS Setup</a></li></ul></li><li><strong>3.</strong> Background Info</li><li><ul class="section"><li><a href="./background/iot.html"><strong>3.1.</strong> The Internet of Things</a></li><li><a href="./background/ble.html"><strong>3.2.</strong> Bluetooth Low Energy</a></li><li><a href="./background/mqtt_and_other.html" class="active"><strong>3.3.</strong> MQTT and other IoT Protocols</a></li><li><a href="./background/cross_compiling.html"><strong>3.4.</strong> Cross Compilation</a></li><li><a href="./background/raspi.html"><strong>3.5.</strong> Raspberry Pi and Embedded Linux</a></li><li><a href="./background/tock_os.html"><strong>3.6.</strong> The Hail Board and Tock OS</a></li></ul></li><li><a href="./tock_os/intro.html"><strong>4.</strong> Tock OS Work</a></li><li><strong>5.</strong> Raspberry Pi Work</li><li><ul class="section"><li><a href="./raspi/hello_world.html"><strong>5.1.</strong> Hello, World!</a></li><li><a href="./raspi/bluetooth.html"><strong>5.2.</strong> Talking with Bluetooth</a></li><li><a href="./raspi/geeny.html"><strong>5.3.</strong> Talking to the Cloud</a></li><li><a href="./raspi/integration.html"><strong>5.4.</strong> Putting it together</a></li><li class="spacer"></li></ul></li><li>2017 James Munns, Niklas Adolfsson, Amit Levy</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="./background/mqtt_and_other.html#mqtt-and-other-iot-protocols" id="mqtt-and-other-iot-protocols"><h1>MQTT and other IoT Protocols</h1></a>
+<p>For lightweight IoT devices, it can be difficult to implement protocols like HTTP commonly used in web applications, due to Memory, CPU, or Code Size limitations. Additionally, common behavior for IoT devices such as asynchronously sending updates or subscribing to updates of incoming data, are not well suited to traditional HTTP or REST APIs.</p>
+<p>This has led to the development of protocols such as <a href="https://en.wikipedia.org/wiki/MQTT">MQTT</a>, <a href="https://en.wikipedia.org/wiki/Constrained_Application_Protocol">CoAP</a>, and <a href="https://en.wikipedia.org/wiki/OMA_LWM2M">LWM2M</a>, which address the complexity concerns, as well as behavior mismatch concerns. These protocols are primarily designed for Machine to Machine (M2M) communication, as opposed to HTTP, which is typically used for presentation of human readable information.</p>
+<p>As these protocols have become commonly used by lightweight IoT devices, they have also become commonly used by devices without constraints, for interoperability purposes.</p>
+<a class="header" href="./background/mqtt_and_other.html#mqtt" id="mqtt"><h2>MQTT</h2></a>
+<p>MQTT is an application protocol that operates over TCP/IP, and allows devices to Subscribe and Publish to Topics. Devices act as MQTT Clients, and connect to a central MQTT Broker, which manages connections and dispatches messages to all connected MQTT Clients.</p>
+<p>Similarly to HTTP, MQTT can be used directly over TCP, or may be secured using SSL/TLS. When the TCP connection used to connect to the MQTT Broker is secured with SSL/TLS, it is referred to as MQTTS.</p>
+<a class="header" href="./background/mqtt_and_other.html#topics" id="topics"><h3>Topics</h3></a>
+<p>Topics are represented as UTF-8 strings, and are composed of one or more Topic Levels, separated by the <code>/</code> character. Some examples of topics could include:</p>
+<ul>
+<li><code>home/james/kitchen/temperature/window</code></li>
+<li><code>home/james/kitchen/temperature/oven</code></li>
+<li><code>home/james/kitchen/brightness/window</code></li>
+<li><code>home/niklas/livingroom/temperature/couch</code></li>
+<li><code>home/niklas/kitchen/brightness/window</code></li>
+<li><code>office/geeny/kitchen/temperature/window</code></li>
+<li><code>office/geeny/kitchen/temperature/table</code></li>
+</ul>
+<a class="header" href="./background/mqtt_and_other.html#publishing" id="publishing"><h3>Publishing</h3></a>
+<p>When an MQTT client would like to send data, it Publishes the data to a specific topic. The format of the payload, or data, is implementation defined, and is often either binary packed data (for size concerns), or JSON (for ease of use).</p>
+<p>MQTT Clients do not talk directly to eachother, instead they send data to the MQTT Broker on a specific topic, which is broadcasted to all Clients which have subscribed to that topic.</p>
+<p>For example, James' Kitchen Temperature Sensor might send the following information:</p>
+<p>Topic: <code>home/james/kitchen/temperature/window</code></p>
+<p>Data:</p>
+<pre><code class="language-JSON">{
+    &quot;temperature_celsius&quot;: 22.0
+}
+</code></pre>
+<a class="header" href="./background/mqtt_and_other.html#subscribing" id="subscribing"><h3>Subscribing</h3></a>
+<p>When an MQTT client would like to receive data, it subscribes to a topic. When a message is sent from the Broker to the Client, it contains the Topic as well as the payload. Topics may be specific, such as <code>home/james/kitchen/temperature/window</code>, or may include wildcards.</p>
+<a class="header" href="./background/mqtt_and_other.html#wildcards" id="wildcards"><h4>Wildcards</h4></a>
+<p>There are two kinds of subscription wildcards, Single Level, and Multi level.</p>
+<p>A single level wildcard is represented as a <code>+</code> character. The subscription request for <code>home/+/kitchen/brightness/window</code> would match:</p>
+<ul>
+<li><code>home/james/kitchen/brightness/window</code></li>
+<li><code>home/niklas/kitchen/brightness/window</code></li>
+</ul>
+<p>A multi level wildcard is represented as a <code>#</code> character. The subscription request for <code>#/temperature/window</code> would match:</p>
+<ul>
+<li><code>home/james/kitchen/temperature/window</code></li>
+<li><code>office/geeny/kitchen/temperature/window</code></li>
+</ul>
+<p>These wildcards can be repeated and combined in a single subscription request. The subscription request for <code>#/temperature/+</code> would match all of :</p>
+<ul>
+<li><code>home/james/kitchen/temperature/window</code></li>
+<li><code>home/james/kitchen/temperature/oven</code></li>
+<li><code>home/niklas/livingroom/temperature/couch</code></li>
+<li><code>office/geeny/kitchen/temperature/window</code></li>
+<li><code>office/geeny/kitchen/temperature/table</code></li>
+</ul>
+<a class="header" href="./background/mqtt_and_other.html#quality-of-service" id="quality-of-service"><h3>Quality of Service</h3></a>
+<p>MQTT allows for varying levels of guarantees regarding delivery of messages. There are three levels that can be chosen:</p>
+<ul>
+<li>QoS Level 0: At Most Once</li>
+<li>QoS Level 1: At Least Once</li>
+<li>QoS Level 2: Exactly Once</li>
+</ul>
+<p>As the QoS level rises, so does the amount of overhead. QoS Level 0 message require no acknowledgement from the Broker, QoS Level 1 requires a single acknowledgement from the Broker, and QoS Level 2 requires a four part handshake before a message has completed sending.</p>
+<p>For periodic messages, such as a regular temperature reading, it may not be necessary to confirm reception (since additional messages will be sent), so QoS 0 would be a good match. For important messages that do not have side effects if applied multiple times, such as a &quot;stop motor&quot; command, QoS Level 1 would be a good match. For messages that must be received exactly once, such as &quot;increase temperature 5 degrees&quot;, QoS 2 should be used.</p>
+<a class="header" href="./background/mqtt_and_other.html#coap-and-other-technologies" id="coap-and-other-technologies"><h2>CoAP and other technologies</h2></a>
+<p>Other protocols have also been created to address many of the same topics addressed by MQTT. For example, CoAP was designed to operate similarly to how REST APIs work, with two major changes:</p>
+<ul>
+<li>UDP is used rather than TCP. This allows for reduced implementation requirements when compared to TCP.</li>
+<li>CoAP introduces a SUBSCRIBE verb, which allows for asynchronus updates</li>
+</ul>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="./background/ble.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="./background/cross_compiling.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="./background/ble.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="./background/cross_compiling.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>

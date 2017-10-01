@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Bluetooth Low Energy - </title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="./rustfest.html"><strong>1.</strong> Foreward - RustFest 2017 Workshop</a></li><li><a href="./setup/intro.html"><strong>2.</strong> Development Environment Setup</a></li><li><ul class="section"><li><a href="./setup/raspi_self.html"><strong>2.1.</strong> Raspberry Pi Setup</a></li><li><a href="./setup/tock_os.html"><strong>2.2.</strong> Tock OS Setup</a></li></ul></li><li><strong>3.</strong> Background Info</li><li><ul class="section"><li><a href="./background/iot.html"><strong>3.1.</strong> The Internet of Things</a></li><li><a href="./background/ble.html" class="active"><strong>3.2.</strong> Bluetooth Low Energy</a></li><li><a href="./background/mqtt_and_other.html"><strong>3.3.</strong> MQTT and other IoT Protocols</a></li><li><a href="./background/cross_compiling.html"><strong>3.4.</strong> Cross Compilation</a></li><li><a href="./background/raspi.html"><strong>3.5.</strong> Raspberry Pi and Embedded Linux</a></li><li><a href="./background/tock_os.html"><strong>3.6.</strong> The Hail Board and Tock OS</a></li></ul></li><li><a href="./tock_os/intro.html"><strong>4.</strong> Tock OS Work</a></li><li><strong>5.</strong> Raspberry Pi Work</li><li><ul class="section"><li><a href="./raspi/hello_world.html"><strong>5.1.</strong> Hello, World!</a></li><li><a href="./raspi/bluetooth.html"><strong>5.2.</strong> Talking with Bluetooth</a></li><li><a href="./raspi/geeny.html"><strong>5.3.</strong> Talking to the Cloud</a></li><li><a href="./raspi/integration.html"><strong>5.4.</strong> Putting it together</a></li><li class="spacer"></li></ul></li><li>2017 James Munns, Niklas Adolfsson, Amit Levy</li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush"></i>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="./background/ble.html#bluetooth-low-energy" id="bluetooth-low-energy"><h1>Bluetooth Low Energy</h1></a>
+<p>Bluetooth Low Energy (BLE) was integrated into the Bluetooth 4.0 specification in 2010. BLE reduced the typical power consumption for devices compared to Bluetooth Classic (Bluetooth 3.x and below), and provided a framework (GATT) that allowed implementation of common functionality, as well as implementation specific functionality.</p>
+<p>Bluetooth has not typically been thought of as an IoT-specific technology, however the prevalence of hardware due to commercially successful products, as well as usage in Laptops and Phones, means that the barrier to entry for consumers is reduced. Additionally, Bluetooth 5 (introduced 2016) introduces additional capabilities, including extended range, higher data throughput, and better coexistence (allowing more simultaneous devices), making it a better fit for IoT applications.</p>
+<a class="header" href="./background/ble.html#gatt" id="gatt"><h2>GATT</h2></a>
+<p>The Generic Attribute Profile, or GATT, defines a system for Central Clients (e.g. a Mobile Phone or Laptop) to discover and interact with Peripheral Servers (e.g. a Bluetooth Fitness Device).</p>
+<p>Servers may provide a set of standard functionality to allow interoperability with many Central devices, as well as expose manufacturer specific functionality.</p>
+<a class="header" href="./background/ble.html#clients-and-servers" id="clients-and-servers"><h2>Clients and Servers</h2></a>
+<p>With BLE, the Server broadcasts information about itself, allowing Clients to discover the Server, as well as what capabilities the Server offers. Clients can choose to connect to the Server, in order to obtain additional information, or to establish a secure communication channel.</p>
+<a class="header" href="./background/ble.html#services-and-characteristics" id="services-and-characteristics"><h2>Services and Characteristics</h2></a>
+<p>Functionality of BLE are exposed via Characteristics, which are identified with a 128-bit UUID, such as <code>0000c01d-c001-de30-cabb-785feabcd123</code>. These Characteristics are grouped into Services, which provide no functionality, but are a collection of related Characteristics. Services are also identified with a UUID, such as <code>00000001-c001-de30-cabb-785feabcd123</code>.</p>
+<p>An example of this grouping might look like this:</p>
+<ul>
+<li>Bluetooth Server Peripheral
+<ul>
+<li>Service: <code>00000001-c001-de30-cabb-785feabcd123</code>
+<ul>
+<li>Characteristic: <code>0000da7a-c001-de30-cabb-785feabcd123</code></li>
+<li>Characteristic: <code>0000c01d-c001-de30-cabb-785feabcd123</code></li>
+<li>Characteristic: <code>0000cafe-c001-de30-cabb-785feabcd123</code></li>
+</ul>
+</li>
+<li>Service: <code>0f050001-3225-44b1-b97d-d3274acb29de</code>
+<ul>
+<li>Characteristic: <code>0f050002-3225-44b1-b97d-d3274acb29de</code></li>
+</ul>
+</li>
+<li>Service: <code>00001801-0000-1000-8000-00805f9b34fb</code>
+<ul>
+<li>Characteristic: <code>00002a05-0000-1000-8000-00805f9b34fb</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>When interacting with a BLE Server, all communication is made via Characteristics.</p>
+<a class="header" href="./background/ble.html#standard-services" id="standard-services"><h3>Standard Services</h3></a>
+<p>For common functionality standardized by the Bluetooth Special Interest Group (SIG), Services and Characteristics can be assigned a 16-bit Shorthand ID, which can be used instead of the full 128-bit UUID. The Bluetooth SIG maintains a list of defined <a href="https://www.bluetooth.com/specifications/gatt/services">Services</a> and <a href="https://www.bluetooth.com/specifications/gatt/characteristics">Characteristics</a>.</p>
+<p>In the example above, the Service <code>00001801-0000-1000-8000-00805f9b34fb</code> is defined as a &quot;Generic Attribute&quot; service, which may be shortened as <code>0x1801</code>. The Characteristic <code>00002a05-0000-1000-8000-00805f9b34fb</code> is defined as &quot;Service Changed&quot;, and may be shortened as <code>0x2a05</code>.</p>
+<a class="header" href="./background/ble.html#actions-on-characteristics" id="actions-on-characteristics"><h2>Actions on Characteristics</h2></a>
+<p>There are specific actions which each Characteristic may or may not support. There are six main interactions:</p>
+<a class="header" href="./background/ble.html#read" id="read"><h3>Read</h3></a>
+<p>A <strong>Read</strong> is requested by the Client, and the Server retrieves the relevant data. Responses are limited to a single packet, typically about 20 bytes of data or less.</p>
+<a class="header" href="./background/ble.html#write" id="write"><h3>Write</h3></a>
+<p>A <strong>Write</strong> sends data to the Client, and the Server accepts the data. Writes are also limited to a single packet, typically about 20 bytes of data or less.</p>
+<a class="header" href="./background/ble.html#long-read" id="long-read"><h3>Long Read</h3></a>
+<p><strong>Long Read</strong>s are a procedure of breaking a larger data transmission into multiple parts, with each part containing data and an offset.</p>
+<a class="header" href="./background/ble.html#long-write" id="long-write"><h3>Long Write</h3></a>
+<p><strong>Long Write</strong>s are a procedure of breaking a larger data transmission into multiple parts, with each part containing data and an offset.</p>
+<a class="header" href="./background/ble.html#notify" id="notify"><h3>Notify</h3></a>
+<p>Rather than requiring a Client to poll a <strong>Read</strong> characteristic to obtain updated data, Bluetooth allows a Client to request a Server to <strong>Notify</strong> it whenever the data changes. The Bluetooth Server may then send data to all subscribed Clients asynchronously. <strong>Notify</strong> messages are also limited to the 20-byte data limit.</p>
+<p><strong>Notify</strong> is particularly useful for low power devices, as it does not require the Server to be continually listening for requests from the Client.</p>
+<a class="header" href="./background/ble.html#indicate-subscribe-w-ack" id="indicate-subscribe-w-ack"><h3>Indicate (subscribe w/ ACK)</h3></a>
+<p><strong>Indicate</strong> is similar to <strong>Notify</strong>, however <strong>Indicate</strong> requires the Client to acknowledge the reception of the message.</p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="./background/iot.html" class="mobile-nav-chapters previous">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="./background/mqtt_and_other.html" class="mobile-nav-chapters next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="./background/iot.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="./background/mqtt_and_other.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+    </body>
+</html>
