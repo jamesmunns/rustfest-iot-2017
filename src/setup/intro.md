@@ -63,7 +63,7 @@ sudo chown -R rustfest /raspi_stretch/
 
 # Setup file used when cross compiling to the Raspberry Pi
 
-cat << EOF > ~/pi-crossenv
+cat << 'EOF' > ~/pi-crossenv
 # This is where we have installed our fake raspberry pi debian system
 export SYSROOT=/raspi_stretch
 export RPI_USR_LIB_DIR=${SYSROOT}/usr/lib/arm-linux-gnueabihf
